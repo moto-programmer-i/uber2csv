@@ -1,0 +1,40 @@
+li {
+    margin-bottom: 20px;
+}
+
+.warn {
+    color: red;
+}
+
+/*
+参考 https://kodocode.net/design-css-loading/
+*/
+.loading {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.6;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+  
+.circle{
+    width:100px;
+    height:100px;
+    border-radius:150px;
+    border:15px solid #fff;
+    border-top-color:rgba(0,0,0,0.3);
+    box-sizing:border-box;
+    animation:circle 1s linear infinite;
+    -webkit-animation:circle 1s linear infinite;
+}
+@keyframes circle{
+    0%{transform:rotate(0deg)}
+    100%{transform:rotate(360deg)}
+}

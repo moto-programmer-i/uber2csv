@@ -4,10 +4,168 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>確定申告売上変換</title>
-    <script src="main.js"></script>
+    <title>Uber売上変換ツール</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- PDF ライブラリ -->
+    <!-- https://mozilla.github.io/pdf.js/ -->
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.12.313/build/pdf.min.js" defer></script>
+
+    <!-- CSV ライブラリ -->
+    <!-- https://www.papaparse.com/ -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.1/papaparse.min.js" defer></script>
+
+    <!-- エンコード ライブラリ-->
+    <!-- https://github.com/polygonplanet/encoding.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/1.0.30/encoding.min.js" defer></script>
+    
+    
+    <script src="modules/utils/array-utils.js" defer></script>
+    <script src="modules/utils/string-utils.js" defer></script>
+    <script src="modules/utils/number-utils.js" defer></script>
+    <script src="modules/utils/object-utils.js" defer></script>
+    <script src="modules/utils/browser-utils.js" defer></script>
+    <script src="modules/utils/simple-date.js" defer></script>
+
+    <script src="modules/parse-mode.js" defer></script>
+    <script src="modules/integer-parse-mode.js" defer></script>
+    <script src="modules/uber/uber-payment-data.js" defer></script>
+    <script src="modules/uber/uber-document-constants.js" defer></script>
+    <script src="modules/uber/uber-document-functions.js" defer></script>
+
+    <script src="modules/csv/uber-payment-csv-config.js" defer></script>
+    <script src="modules/csv/freeway-csv-constants.js" defer></script>
+    <script src="modules/csv/freeway-csv-converter.js" defer></script>
+    <script src="main.js" defer></script>
 </head>
-<body onload="init();">
+<body>
+    <h1>
+        Uber売上PDF → フリーウェイ経理のCSV
+    </h1>
+    <h2>
+        ↓PDFを選択（複数選択可、ファイル選択後すぐに変換が始まります）
+    </h2>
+    <label>
+        <input type="file" id="uberDocuments" multiple accept=".pdf" onchange="main()">    
+    </label>
+    <br>
+    <br>
+    <br>
+
+
+    <hr>
+    <h2 class="warn">
+        ※注意
+    </h2>
+    <p>
+        <ul>
+            <li>
+                <span class="warn">使用は自己責任</span>でお願いします。<br>
+                このツールを使用することによって生じたいかなる損害も当方は一切責任を負いません。
+            </li>
+
+            <li>
+                <span class="warn">年末年始の調整もしてません。</span><br>
+                （年末年始の売上は、必要に応じて修正してください）<br>
+            </li>
+
+            <li>
+                <span class="warn">振込の日付に?が入るのは仕様</span>です。<br>
+                PDFにUberが送金した日付が書かれていますが、配達員の口座に入金された日付とは違います。<br>
+                自身の預金通帳で入金された日付を確認し、修正してください。
+            </li>
+
+            <li>
+                <span class="warn">PDFに記載された振込金額と、実際に口座に振り込まれた金額が1円違うことがあります。</span><br>
+                その対応も各自でお願いします。<br>
+            </li>
+
+            <li>
+                他人の環境で動作する保証はありません。Uber側が売上PDFの構成変更をした際も動作しなくなります。
+            </li>
+            <li>
+                <a href="https://faq.freeway-japan.com/faq/show/365" target="_blank">
+                    フリーウェイ経理無料版は、ファイル名が「KAI0000-Shiwake.csv」でなければ取り込めません。
+                </a>
+            </li>
+        </ul>
+    </p>
+    <hr>
+    <h2>勘定科目コード設定</h2>
+    <table>
+        <thead>
+            <th>勘定科目</th>
+            <th>コード</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Uber
+                </td>
+                <td>
+                    <input type="number" id="uberCode" value="1168">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Uber手数料（補助科目）
+                </td>
+                <td>
+                    <input type="number" id="uberFeeCode" value="1">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    売上高
+                </td>
+                <td>
+                    <input type="number" id="saleCode" value="8000">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    支払手数料
+                </td>
+                <td>
+                    <input type="number" id="feeCode" value="8581">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    事業主貸
+                </td>
+                <td>
+                    <input type="number" id="ownerLoanCode" value="3180">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    事業主借
+                </td>
+                <td>
+                    <input type="number" id="ownerDebtCode" value="7320">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <hr>
+    <h2>
+        権利情報
+    </h2>
+    <hr>
+    <h2>
+        外部ライブラリ
+    </h2>
+    
+    <!-- 参考 
+        https://kodocode.net/design-css-loading/
+    -->
+    <div id="loading" class="loading">
+        <div class="circle"></div>
+    </div>
     
 </body>
 </html>
