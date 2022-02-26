@@ -1,0 +1,98 @@
+{
+  "id": "0b488620-687b-467b-a155-d2d5b8623dda",
+  "version": "2.0",
+  "name": "Uber PDF download",
+  "url": "https://drivers.uber.com",
+  "tests": [{
+    "id": "f21007eb-6554-4544-b72e-9f2850eaea7e",
+    "name": "PDF download",
+    "commands": [{
+      "id": "8d5fddfc-1860-4387-904c-76c57b40d129",
+      "comment": "",
+      "command": "open",
+      "target": "/p3/payments/statements?month=1&year=2021",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c57ca4c8-da35-4815-8359-ba123e8ae6b8",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1221x1043",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fcf4bab6-ac02-4dad-a2de-b3ab7549658e",
+      "comment": "",
+      "command": "times",
+      "target": "12",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d2877124-6e3e-463b-8388-6af182a769b1",
+      "comment": "",
+      "command": "storeXpathCount",
+      "target": "xpath=//table/tbody/tr",
+      "targets": [],
+      "value": "rowNum"
+    }, {
+      "id": "cfb88b1e-d04d-4ea1-970c-35b00c38b3dc",
+      "comment": "",
+      "command": "store",
+      "target": "1",
+      "targets": [],
+      "value": "count"
+    }, {
+      "id": "88a6bd61-6e8a-4647-9926-dd137312effb",
+      "comment": "",
+      "command": "do",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3d1b616e-ac81-45c7-a005-3a0aeb6b2840",
+      "comment": "",
+      "command": "click",
+      "target": "css=.\\_style_2T0IvR:nth-child(${count}) > .\\_style_4AGN0S:nth-child(4) > .c7",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6b9b92f7-f1ea-4c66-8643-ea2f1e8ec467",
+      "comment": "",
+      "command": "executeScript",
+      "target": "return + ${count} + 1",
+      "targets": [],
+      "value": "count"
+    }, {
+      "id": "b574bd43-5ed8-473e-b270-cb90d3bdbdd3",
+      "comment": "",
+      "command": "repeatIf",
+      "target": "${count} <= ${rowNum}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "22a68518-9fef-47b6-85d6-c06b05502d22",
+      "comment": "",
+      "command": "click",
+      "target": "css=.ax:nth-child(4) path",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5aa059d9-aac4-4f7f-886f-ec7a75e325ab",
+      "comment": "",
+      "command": "end",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "4e43b08d-4607-4894-b151-cfb7d0fc8974",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["f21007eb-6554-4544-b72e-9f2850eaea7e"]
+  }],
+  "urls": ["https://drivers.uber.com/"],
+  "plugins": []
+}
