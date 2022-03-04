@@ -7,10 +7,24 @@
     "id": "f21007eb-6554-4544-b72e-9f2850eaea7e",
     "name": "PDF download",
     "commands": [{
+      "id": "b7abfc23-719f-4ae1-8c96-5b8087b2e409",
+      "comment": "",
+      "command": "store",
+      "target": "1",
+      "targets": [],
+      "value": "month"
+    }, {
+      "id": "8e8a5f5e-d9e4-4a57-bf00-b02b4ce4587c",
+      "comment": "",
+      "command": "do",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }, {
       "id": "8d5fddfc-1860-4387-904c-76c57b40d129",
       "comment": "",
       "command": "open",
-      "target": "/p3/payments/statements?month=1&year=2021",
+      "target": "/p3/payments/statements?month=${month}&year=2021",
       "targets": [],
       "value": ""
     }, {
@@ -21,14 +35,7 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "fcf4bab6-ac02-4dad-a2de-b3ab7549658e",
-      "comment": "",
-      "command": "times",
-      "target": "12",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "fa71f848-68f1-477f-af9d-9b02bc87e4e9",
+      "id": "0d39c781-8bee-4c06-baf4-4152e0cdc398",
       "comment": "",
       "command": "waitForElementPresent",
       "target": "css=.\\_style_2T0IvR:nth-child(1) > .\\_style_4AGN0S:nth-child(4) > .c7",
@@ -52,7 +59,7 @@
       "command": "store",
       "target": "1",
       "targets": [],
-      "value": "count"
+      "value": "row"
     }, {
       "id": "88a6bd61-6e8a-4647-9926-dd137312effb",
       "comment": "",
@@ -64,35 +71,35 @@
       "id": "3d1b616e-ac81-45c7-a005-3a0aeb6b2840",
       "comment": "",
       "command": "click",
-      "target": "css=.\\_style_2T0IvR:nth-child(${count}) > .\\_style_4AGN0S:nth-child(4) > .c7",
+      "target": "css=.\\_style_2T0IvR:nth-child(${row}) > .\\_style_4AGN0S:nth-child(4) > .c7",
       "targets": [],
       "value": ""
     }, {
       "id": "6b9b92f7-f1ea-4c66-8643-ea2f1e8ec467",
       "comment": "",
       "command": "executeScript",
-      "target": "return + ${count} + 1",
+      "target": "return + ${row} + 1",
       "targets": [],
-      "value": "count"
+      "value": "row"
     }, {
       "id": "b574bd43-5ed8-473e-b270-cb90d3bdbdd3",
       "comment": "",
       "command": "repeatIf",
-      "target": "${count} <= ${rowNum}",
+      "target": "${row} <= ${rowNum}",
       "targets": [],
       "value": ""
     }, {
-      "id": "22a68518-9fef-47b6-85d6-c06b05502d22",
+      "id": "b0425a89-786b-489e-97c4-f040b186766e",
       "comment": "",
-      "command": "click",
-      "target": "css=.ax:nth-child(4) path",
+      "command": "executeScript",
+      "target": "return + ${month} + 1",
       "targets": [],
-      "value": ""
+      "value": "month"
     }, {
-      "id": "5aa059d9-aac4-4f7f-886f-ec7a75e325ab",
+      "id": "deda55d5-399b-4b70-a656-06bbfa61a92a",
       "comment": "",
-      "command": "end",
-      "target": "",
+      "command": "repeatIf",
+      "target": "${month} <= 12",
       "targets": [],
       "value": ""
     }]
