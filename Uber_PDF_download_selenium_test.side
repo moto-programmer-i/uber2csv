@@ -2,7 +2,7 @@
   "id": "0b488620-687b-467b-a155-d2d5b8623dda",
   "version": "2.0",
   "name": "Uber PDF download",
-  "url": "https://drivers.uber.com",
+  "url": "https://drivers.uber.com/",
   "tests": [{
     "id": "f21007eb-6554-4544-b72e-9f2850eaea7e",
     "name": "PDF download",
@@ -38,10 +38,10 @@
       "id": "0d39c781-8bee-4c06-baf4-4152e0cdc398",
       "comment": "",
       "command": "waitForElementPresent",
-      "target": "css=.\\_style_2T0IvR:nth-child(1) > .\\_style_4AGN0S:nth-child(4) > .c7",
+      "target": "xpath=//table/tbody/tr[1]/td[4]/button",
       "targets": [
-        ["css=.\\_style_2T0IvR:nth-child(1) > .\\_style_4AGN0S:nth-child(4) > .c7", "css:finder"],
-        ["xpath=//div[@id='root']/div/div/div/div/div[2]/div/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["css=.\\_css-ibWBlD:nth-child(1) > .\\_css-cgrltR:nth-child(4) > .\\_css-bSkRMV", "css:finder"],
+        ["xpath=//div[@id='wrapper']/div[3]/div/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
         ["xpath=//td[4]/button", "xpath:position"],
         ["xpath=//button[contains(.,'PDF をダウンロード')]", "xpath:innerText"]
       ],
@@ -53,6 +53,13 @@
       "target": "xpath=//table/tbody/tr",
       "targets": [],
       "value": "rowNum"
+    }, {
+      "id": "306c86b5-c711-47a3-b631-1430d2825eb8",
+      "comment": "",
+      "command": "echo",
+      "target": "${rowNum}",
+      "targets": [],
+      "value": ""
     }, {
       "id": "cfb88b1e-d04d-4ea1-970c-35b00c38b3dc",
       "comment": "",
@@ -71,8 +78,13 @@
       "id": "3d1b616e-ac81-45c7-a005-3a0aeb6b2840",
       "comment": "",
       "command": "click",
-      "target": "css=.\\_style_2T0IvR:nth-child(${row}) > .\\_style_4AGN0S:nth-child(4) > .c7",
-      "targets": [],
+      "target": "xpath=//table/tbody/tr[${row}]/td[4]/button",
+      "targets": [
+        ["css=.\\_css-ibWBlD:nth-child(1) > .\\_css-cgrltR:nth-child(4) > .\\_css-bSkRMV", "css:finder"],
+        ["xpath=//div[@id='wrapper']/div[3]/div/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'PDF をダウンロード')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "6b9b92f7-f1ea-4c66-8643-ea2f1e8ec467",
