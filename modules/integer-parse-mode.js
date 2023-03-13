@@ -13,7 +13,7 @@ class IntegerParseMode extends ParseMode {
      * @param {(number: Number) => void} withInteger 整数を使った関数
      * @param {RegExp} 元に戻す条件
      */
-    constructor(withInteger, primalFlag = false, revertPattern) {
+    constructor(withInteger, primalFlag = false, revertPattern = null) {
         // 整数解析パターン、解析結果を整数にしてwithIntegerを呼び出すようにする
         super(
             UberDocumentConstants.UBER_INTEGER_PATTERN,

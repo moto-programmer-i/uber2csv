@@ -66,21 +66,21 @@ class SimpleDate {
 
 
     /**
-     * / で区切られた日付の、年のインデックス
+     * 区切られた日付の、年のインデックス
      */
       static get YEAR_INDEX() {
         return 0;
     }
 
     /**
-     * / で区切られた日付の、月のインデックス
+     * 区切られた日付の、月のインデックス
      */
     static get MONTH_INDEX() {
         return 1;
     }
 
     /**
-     * / で区切られた日付の、日のインデックス
+     * 区切られた日付の、日のインデックス
      */
     static get DAY_INDEX() {
         return 2;
@@ -93,6 +93,16 @@ class SimpleDate {
      */
     static ofString(dateStr, separator) {
         const strs = dateStr.split(separator);
+        return new SimpleDate(strs[this.YEAR_INDEX], strs[this.MONTH_INDEX], strs[this.DAY_INDEX]);
+    }
+
+    /**
+     * 文字列からインスタンスを作成
+     * @param {string} dateStr 日付の文字列（例：2021/05/03）
+     * @param {RegExp} pattern 文字パターン（例：/(\\d+)/g ）
+     */
+    static ofStringRegExp(dateStr, pattern) {
+        const strs = pattern.match(dateStr);
         return new SimpleDate(strs[this.YEAR_INDEX], strs[this.MONTH_INDEX], strs[this.DAY_INDEX]);
     }
 

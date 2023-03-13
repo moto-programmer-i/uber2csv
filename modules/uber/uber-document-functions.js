@@ -70,16 +70,52 @@ function textItemsToData(textItems) {
 
     // 利用する解析モード
     const parseModes = [
-        
-        // 週の始まりの日付を探して保存
-        new ParseMode(UberDocumentConstants.UBER_START_DATE_PATTERN, (result, index, source) => {
-            uberPaymentData.startDate = SimpleDate.ofString(result[UberDocumentConstants.REGEXP_EXEC_PART_INDEX], UberDocumentConstants.UBER_DATE_SEPARATOR);
+
+        // 週の始まりの年を探して保存（他の4桁の数字が先に来る場合は修正が必要）
+        new ParseMode(UberDocumentConstants.UBER_START_YEAR_PATTERN, (result, index, source) => {
+            uberPaymentData.startDate = new SimpleDate();
+            uberPaymentData.startDate.year = result[UberDocumentConstants.REGEXP_EXEC_PART_INDEX];
+
+            // 月を保存
+            parseModes.unshift(new IntegerParseMode(
+                month => {
+                    uberPaymentData.startDate.month = month;
+
+                    // 日を保存
+                    parseModes.unshift(new IntegerParseMode(day => uberPaymentData.startDate.day = day, true));
+                },
+                true
+            ));
         }),
 
-        // 週の終わりの日付を探して保存
-        new ParseMode(UberDocumentConstants.UBER_END_DATE_PATTERN, (result, index, source) => {
-            uberPaymentData.endDate = SimpleDate.ofString(result[UberDocumentConstants.REGEXP_EXEC_PART_INDEX], UberDocumentConstants.UBER_DATE_SEPARATOR);
+
+        // 週の終わりの年を探して保存（他の4桁の数字が先に来る場合は修正が必要）
+        new ParseMode(UberDocumentConstants.UBER_END_YEAR_PATTERN, (result, index, source) => {
+            uberPaymentData.endDate = new SimpleDate();
+            uberPaymentData.endDate.year = result[UberDocumentConstants.REGEXP_EXEC_PART_INDEX];
+
+            // 月を保存
+            parseModes.unshift(new IntegerParseMode(
+                month => {
+                    uberPaymentData.endDate.month = month;
+
+                    // 日を保存
+                    parseModes.unshift(new IntegerParseMode(day => uberPaymentData.endDate.day = day, true));
+                },
+                true
+            ));
         }),
+        
+        // 日付が "2022/5/3" ではなく、"2022", "5", "3" と分かれてくるようになってしまったため廃止
+        // // 週の始まりの日付を探して保存
+        // new ParseMode(UberDocumentConstants.UBER_START_DATE_PATTERN, (result, index, source) => {
+        //     uberPaymentData.startDate = SimpleDate.ofStringRegExp(result[UberDocumentConstants.REGEXP_EXEC_PART_INDEX], UberDocumentConstants.UBER_DATE_PATTERN);
+        // }),
+
+        // // 週の終わりの日付を探して保存
+        // new ParseMode(UberDocumentConstants.UBER_END_DATE_PATTERN, (result, index, source) => {
+        //     uberPaymentData.endDate = SimpleDate.ofStringRegExp(result[UberDocumentConstants.REGEXP_EXEC_PART_INDEX], UberDocumentConstants.UBER_DATE_PATTERN);
+        // }),
 
 
         // 売り上げのラベルを探し、次の数値を売り上げとみなす

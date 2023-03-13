@@ -42,24 +42,53 @@ class UberDocumentConstants {
         return "/";
     }
 
-   
 
-    static #UBER_START_DATE_PATTERN = new RegExp('(\\d+/\\d+/\\d+)');
+    // 日付が "2022/5/3" ではなく、"2022", "5", "3" と分かれてくるようになってしまったため、4桁の数値しか判断材料がない
+    // もしPDFの読み込みで、日付の前に他の4桁の数字がくる場合は修正が必要
+    static #UBER_START_YEAR_PATTERN = new RegExp('(\\d\\d\\d\\d)');
     /**
-     * 売り上げの週の始まりの日付のパターン（振込日に年が書いてないため取得の必要がある）
-     * 例：2021/05/03 にマッチして、2021/05/03を返す
+     * 売り上げの週の始まりの年のパターン
      */
-    static get UBER_START_DATE_PATTERN() {
-        return this.#UBER_START_DATE_PATTERN;
+    static get UBER_START_YEAR_PATTERN() {
+        return this.#UBER_START_YEAR_PATTERN;
     }
 
-    static #UBER_END_DATE_PATTERN = new RegExp('- (\\d+/\\d+/\\d+)');
+    // "- 2023" のような形式でくる
+    static #UBER_END_YEAR_PATTERN = new RegExp('\\D*(\\d\\d\\d\\d)');
     /**
-     * 売り上げの週の終わりの日付のパターン
-     * 例：- 2021/05/10 にマッチして、2021/05/10を返す
+     * 売り上げの週の終わりの年のパターン
      */
-    static get UBER_END_DATE_PATTERN() {
-        return this.#UBER_END_DATE_PATTERN;
+    static get UBER_END_YEAR_PATTERN() {
+        return this.#UBER_END_YEAR_PATTERN;
+    }
+   
+
+    // 日付が "2022/5/3" ではなく、"2022", "5", "3" と分かれてくるようになってしまったため廃止
+    // static #UBER_START_DATE_PATTERN = new RegExp('(\\d+\\D+\\d+\\D+\\d+)');
+    // /**
+    //  * 売り上げの週の始まりの日付のパターン（振込日に年が書いてないため取得の必要がある）
+    //  * 例：数値以外の区切り文字で分割、2021/05/03 でも 2021年5月3日でも可
+    //  */
+    // static get UBER_START_DATE_PATTERN() {
+    //     return this.#UBER_START_DATE_PATTERN;
+    // }
+
+    // static #UBER_END_DATE_PATTERN = new RegExp('\\D*(\\d+\\D+\\d+\\D+\\d+)');
+    // /**
+    //  * 売り上げの週の終わりの日付のパターン
+    //  * 例：数値以外の区切り文字で分割、2021/05/03 でも 2021年5月3日でも可
+    //  */
+    // static get UBER_END_DATE_PATTERN() {
+    //     return this.#UBER_END_DATE_PATTERN;
+    // }
+
+    static #UBER_DATE_PATTERN = /(\\d+)/g;
+    /**
+     * 日付を分割するパターン（年、月、日と分割されることを想定）
+     * 例：数値以外の区切り文字で分割、2021/05/03 でも 2021年5月3日でも可
+     */
+    static get UBER_DATE_PATTERN() {
+        return this.#UBER_DATE_PATTERN;
     }
 
 
