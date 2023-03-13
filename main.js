@@ -13,7 +13,6 @@ async function main() {
     const loading = document.getElementById("loading");
     loading.style.visibility = "visible";
     try {
-
         // Uber売り上げPDF取得
         const uberDocuments = document.getElementById("uberDocuments").files;
         if (!uberDocuments || uberDocuments.length <= 0) {
@@ -47,6 +46,10 @@ async function main() {
         // https://tips.recatnap.info/laboratory/detail/js_convert_charcode_before_download_file
         const sjisArray = Encoding.convert(Encoding.stringToCode(csv), "SJIS");
         BrowserUtils.download(BrowserUtils.toBlob(new Uint8Array(sjisArray), "text/csv"), FreewayCsvConstants.FILE_NAME_FOR_FREE_VERSION, BrowserUtils.BLOB_TYPE_CSV);
+    }
+    catch (error) {
+        alert(error);
+        console.error(error);
     }
     finally {
         // 処理中画面を消す
