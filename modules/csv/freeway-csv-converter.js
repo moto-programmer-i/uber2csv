@@ -143,6 +143,20 @@ class FreewayCsvConverter {
                 })
             );
         }
+
+        // 過去のイベントの数値から、
+        // 借方 Uber    貸方 売上
+        if (uberPaymentData.previousSale > 0) {
+            jsonArray.push(
+                this.generateJson({
+                    freewayDateString,
+                    debitCode: this.#config.uberCode,
+                    creditCode: this.#config.saleCode,
+                    money: uberPaymentData.previousSale,
+                    memo: FreewayCsvConstants.PREVIOUS_SALE_MEMO
+                })
+            );
+        }
     }
 
     /**

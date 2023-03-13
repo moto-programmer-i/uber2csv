@@ -182,6 +182,14 @@ function textItemsToData(textItems) {
         new ParseMode(UberDocumentConstants.UBER_REPAYMENT_LABEL_PATTERN, (result, index, source) => {
             parseModes.unshift(primalParseMode = new IntegerParseMode(num => uberPaymentData.repayment = num, true));
         }),
+
+        // 過去の週のイベントのラベルを探し、次の数値を過去の週の売り上げとみなす
+        new ParseMode(UberDocumentConstants.UBER_PREVIOUS_SALE_LABEL_PATTERN, (result, index, source) => {
+            parseModes.unshift(new IntegerParseMode(
+                num => uberPaymentData.previousSale = num,
+                true
+            ));
+        }),
     ];
 
 

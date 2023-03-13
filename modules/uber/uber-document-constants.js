@@ -161,6 +161,17 @@ class UberDocumentConstants {
         return this.#UBER_FEE_LABEL_PATTERN;
     }
 
+    
+
+    static #UBER_PREVIOUS_SALE_LABEL_PATTERN = new RegExp('過去の週のイベント');
+    /**
+     * 過去の週のイベント（売上）のラベルのパターン
+     * 例：過去の週のイベント
+     */
+    static get UBER_PREVIOUS_SALE_LABEL_PATTERN() {
+        return this.#UBER_PREVIOUS_SALE_LABEL_PATTERN;
+    }
+
     static #TODAY = new Date();
     /**
      * 今日の日付を返す（口座振込年が取得できなかった場合は一応前年を設定するため）

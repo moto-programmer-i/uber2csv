@@ -68,6 +68,14 @@ class FreewayCsvConstants {
     }
 
     /**
+     * 借方 Uber        貸方 売上
+     * の摘要（過去の週の売上）
+     */
+    static get PREVIOUS_SALE_MEMO() {
+        return "Uber配送報酬 過去の週";
+    }
+
+    /**
      * 無料版のファイル名
      */
     static get FILE_NAME_FOR_FREE_VERSION() {

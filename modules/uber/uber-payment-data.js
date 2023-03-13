@@ -156,6 +156,25 @@ class UberPaymentData {
         this.#repayment = value;
     }
 
+
+    #previousSale = 0;
+    /**
+     * 過去の週のイベント（前の週のチップなど、つまり売上）
+     */
+    get previousSale() {
+        return this.#previousSale;
+    }
+    /**
+     * 売り上げを設定
+     * @param value 不正な値は0とみなす
+     */
+    set previousSale(value) {
+        if (!Number.isFinite(value)) {
+            value = 0;
+        }
+        this.#previousSale = value;
+    }
+
     constructor() {
     }
 
@@ -170,6 +189,6 @@ class UberPaymentData {
             && this.deposit == 0
             && this.#fee == 0
             && this.#repayment == 0
-            && this.#sale == 0;
+            && this.#previousSale == 0;
     }
 }
