@@ -87,6 +87,18 @@
       ],
       "value": ""
     }, {
+      "id": "25c79f3a-c36c-4e88-a50b-64bbc40723d3",
+      "comment": "",
+      "command": "waitForElementNotPresent",
+      "target": "xpath=//table/tbody/tr[${row}]/td[4]/button/div[2]",
+      "targets": [
+        ["css=.\\_css-eQxwbF", "css:finder"],
+        ["xpath=//div[@id='wrapper']/div[3]/div/div[2]/table/tbody/tr/td[4]/button", "xpath:idRelative"],
+        ["xpath=//td[4]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'PDF をダウンロード')]", "xpath:innerText"]
+      ],
+      "value": "30000"
+    }, {
       "id": "6b9b92f7-f1ea-4c66-8643-ea2f1e8ec467",
       "comment": "",
       "command": "executeScript",
